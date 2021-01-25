@@ -5,49 +5,72 @@
 	<groupId>miProyecto</groupId>
 	<artifactId>virtualBox</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+
 	<repositories>
 		<repository>
-			<id>lib</id>
-			<url>file:${project.basedir}/lib</url>
+			<id>in-project</id>
+			<name>In Project Repo</name>
+			<url>file:${project.basedir}/libs</url>
 		</repository>
 	</repositories>
+	<!-- <repositories> -->
+	<!-- <repository> -->
+	<!-- <id>lib</id> -->
+	<!-- <url>file:${project.basedir}/lib</url> -->
+	<!-- </repository> -->
+	<!-- </repositories> -->
 	<dependencies>
 		<dependency>
-			<groupId>algo</groupId>
-			<artifactId>algo</artifactId>
-			<scope>system</scope>
+			<groupId>vboxjws</groupId>
+			<artifactId>vboxjws</artifactId>
 			<version>1.0</version>
-			<systemPath>${basedir}\lib\vboxjws.jar</systemPath>
 		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.10.9</version>
+		</dependency>
+
+		<!-- <dependency> -->
+		<!-- <groupId>org.virtualbox_6_1</groupId> -->
+		<!-- <artifactId>virtualbox_6_1 </artifactId> -->
+		<!-- <version>6.1</version> -->
+		<!-- <scope>system</scope> -->
+		<!-- <systemPath>D:\SDK's\VirtualBoxSDK-6.1.16-140961\sdk\bindings\webservice\java\jax-ws\vboxjws.jar -->
+		<!-- </systemPath> -->
+		<!-- </dependency> -->
 	</dependencies>
+	<!-- <dependencies> -->
+	<!-- <dependency> -->
+	<!-- <groupId>algo</groupId> -->
+	<!-- <artifactId>algo</artifactId> -->
+	<!-- <scope>system</scope> -->
+	<!-- <version>1.0</version> -->
+	<!-- <systemPath>${basedir}\lib\vboxjws.jar</systemPath> -->
+	<!-- </dependency> -->
+	<!-- </dependencies> -->
 	<build>
 		<plugins>
 			<plugin>
-				<artifactId>maven-dependency-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<transformers>
+						<transformer
+							implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+							<mainClass>virtualBox.MyMain</mainClass>
+						</transformer>
+					</transformers>
+				</configuration>
 				<executions>
 					<execution>
-						<phase>compile</phase>
+						<phase>package</phase>
 						<goals>
-							<goal>copy-dependencies</goal>
+							<goal>shade</goal>
 						</goals>
-						<configuration>
-							<outputDirectory>${project.build.directory}/lib</outputDirectory>
-						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-
-			<plugin>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>virtualBox.MyMain</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
