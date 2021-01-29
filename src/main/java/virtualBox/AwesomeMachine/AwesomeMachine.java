@@ -114,7 +114,7 @@ public class AwesomeMachine {
 	public void turnOn_VM(VirtualBoxManager virtualBoxManager, IVirtualBox vbox) {
 		// from the list returned by getMachines we get the third one	
 		IMachine cobe = vbox.findMachine("betaMachine");		
-		System.out.println("\nAttempting to start VM '" + cobe.getName() + "'");
+		System.out.println("\nAttempting to start VM ' 1" + cobe.getName() + "'");
 
 		/*
 		 * doc:The ISession interface represents a client process and allows for locking
